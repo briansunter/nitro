@@ -26,7 +26,8 @@ export default class App extends Component<Props, State> {
                     Cmd+D or shake for dev menu
                 </Text>
 
-                <HelloWorld style={styles.helloworld} max={10} />
+                <HelloWorld />
+
             </View>
         );
     }

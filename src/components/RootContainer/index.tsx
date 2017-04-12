@@ -11,11 +11,11 @@ type Increment = {
   type: 'Increment'
 };
 
-type IncrementF= {
-  type: 'IncrementF'
+type Decrement= {
+  type: 'Decrement'
 };
 
-type CounterActions =  Increment | IncrementF;
+type CounterActions =  Increment | Decrement;
 
 interface CounterState {
   count: number;
@@ -23,8 +23,8 @@ interface CounterState {
 
 const counterEpic: Epic<CounterActions, CounterState> = (action$, store) =>
 action$.ofType('Increment')
-.delay(1000)
-.map<Increment,IncrementF>(action => ({type: 'IncrementF'}));
+.delay(2000)
+.map<Increment,Decrement>(action => ({type: 'Decrement'}));
 
 
 interface Props {
@@ -55,8 +55,16 @@ const mapDispatchToProps = (dispatch: any):any=> ({
   }
 });
 
-const counterReducer:Reducer<CounterState> = (state:CounterState, action:CounterActions) => ({
-  count: state.count + 1})
+const counterReducer:Reducer<CounterState> = (state:CounterState, action:CounterActions) => {
+  switch (action.type){
+    case "Increment":
+    return {count: state.count + 1};
+    case "Decrement":
+    return {count: state.count - 1};
+    default:
+    return state;
+  }
+};
 
   const epicMiddleware = createEpicMiddleware(counterEpic);
   const store = createStore(counterReducer,{count: 667},applyMiddleware(epicMiddleware))

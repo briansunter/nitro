@@ -1,5 +1,5 @@
-import React, {Component } from "react";
-import {Provider} from "react-redux";
+import React, { Component } from "react";
+import {connect,StatelessComponent, Provider} from "react-redux";
 import { View, Text } from "react-native";
 import {applyMiddleware,createStore,Reducer} from "redux";
 import { ActionsObservable,createEpicMiddleware, combineEpics, Epic } from 'redux-observable';
@@ -21,19 +21,21 @@ type CounterActions =  Increment | IncrementF;
 interface CounterState {
     count: number;
 }
+
 const counterEpic: Epic<CounterActions, CounterState> = (action$, store) =>
     action$.ofType('Increment').map<Increment,IncrementF>(action => ({type: 'IncrementF'}));
 
-const epicMiddleware = createEpicMiddleware(counterEpic)
+const epicMiddleware = createEpicMiddleware(counterEpic);
 
 const counterReducer:Reducer<CounterState> = (state:CounterState,action:CounterActions) => {
-  return {count: state.count++};
+  return {count: state.count + 1};
 }
 
-const store = createStore(counterReducer,{count: 0},applyMiddleware(epicMiddleware))
+const store = createStore(counterReducer,{count: 667},applyMiddleware(epicMiddleware))
 
 interface Props {
   nums: number;
+  onClick1: any;
   max?: number;
   message?: string | number;
   alert?: string | number;
@@ -45,47 +47,39 @@ interface State {
 
 interface Foo {};
 
-export default class HelloWorld  extends Component<Foo,Foo> {
-  static defaultProps = {}
+class Counter extends Component<Props, {}> {
   render() {
-    return (<View>
-      <Provider store={store}>
-      <Counter nums={2}/>
-      </Provider>
-
-      <Text> "Hello FUCK"</Text></View>)
-  }
-}
-
-class Counter extends Component<Props, State> {
-  static defaultProps = {
-    message: "Press here",
-    alert: "Hello world!",
-  };
-
-  state = {
-    counter: 0,
-  };
-
-  onPress = () => {
-    const counter = this.state.counter + 1;
-    if (counter < this.props.max) {
-      return this.setState({ counter });
-    }
-    // Alert after re-rendering
-    return this.setState({ counter: 0 }, () => alert(this.props.alert));
-  }
-
-  render() {
-    const { message } = this.props;
-    const { counter } = this.state;
-
+    const { nums, onClick1} = this.props;
     return (
       <View>
-      <Button onPress={this.onPress}>
-      {message} ({counter})
+      <Button onPress={() => onClick1()}>
+      ({nums})
       </Button>
       </View>
     );
+  }
+}
+
+const mapStateToProps = (state: any, ownProp? :any):any=> ({
+    nums: state.count
+});
+
+const mapDispatchToProps = (dispatch: any):any=> ({
+    onClick1: () => {
+        dispatch({ type: 'Increment'});
+    }
+});
+
+const Counter1 = connect<{},Props,{}> (mapStateToProps,mapDispatchToProps)(Counter);
+
+
+export default class HelloWorld extends Component<Foo,Foo> {
+  render() {
+    return (
+      <View>
+      <Provider store={store}>
+      <Counter1 />
+      </Provider>
+      <Text> "Hello FUCK"</Text></View>)
   }
 }

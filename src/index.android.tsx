@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import HelloWorld from "./components/HelloWorld/index";
+import RootContainer from "./components/RootContainer/index";
 
 interface Props {
 
@@ -25,7 +25,7 @@ export default class App extends Component<Props, State> {
                     Shake or press menu button for dev menu
                 </Text>
 
-                <HelloWorld />
+                <RootContainer />
             </View>
         );
     }
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     } as React.TextStyle,
 
-    helloworld: {
+    RootContainer: {
         marginVertical: 15,
     } as React.ViewStyle,
 });

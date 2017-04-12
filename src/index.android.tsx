@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {TextStyle, ViewStyle, View, Text, StyleSheet } from "react-native";
 
 import RootContainer from "./components/RootContainer/index";
 
@@ -37,21 +37,21 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#F5FCFF",
-    } as React.ViewStyle,
+    } as ViewStyle,
 
     welcome: {
         fontSize: 20,
         textAlign: "center",
         margin: 10,
-    } as React.TextStyle,
+    } as TextStyle,
 
     instructions: {
         textAlign: "center",
         color: "#333333",
         marginBottom: 5,
-    } as React.TextStyle,
+    } as TextStyle,
 
     RootContainer: {
         marginVertical: 15,
-    } as React.ViewStyle,
+    } as ViewStyle,
 });

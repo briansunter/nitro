@@ -1,15 +1,13 @@
 // It is necessary to add the typings of imported oomponents
 
 declare module "react-native-button" {
-    import React, { Component } from "react";
+    import React, { Component } from "react";
 
-    interface Props {
-        style?: React.ViewStyle;
-        styleDisabled?: React.ViewStyle;
-        onPress?: () => any;
+    interface ButtonProps {
+        onPress?: Function;
     }
 
-    export default class Button extends Component<Props, any> {}
+    export default class Button extends Component<ButtonProps, any> {}
 }
 
 /*

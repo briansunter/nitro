@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { ViewStyle, View, Text, StyleSheet } from "react-native";
 
 import RootContainer from "./components/RootContainer/index";
 
@@ -19,5 +19,5 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#F5FCFF",
-    } as React.ViewStyle,
+    } as ViewStyle
 });
